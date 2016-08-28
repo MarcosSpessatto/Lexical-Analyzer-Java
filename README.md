@@ -1,6 +1,6 @@
 # Lexical-Analyzer-Java
 
-Implementation of a lexical analyzer in java ,for academic purposes of discipline compilers
+Implementation of a lexical analyzer in java without RegEx,for academic purposes of discipline compilers
 
 Automaton to recognize languages whose tokens are:
 - Handles formed by an underscore and may then have one or more numbers or letters
