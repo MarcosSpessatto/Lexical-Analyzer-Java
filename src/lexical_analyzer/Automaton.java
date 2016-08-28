@@ -10,13 +10,14 @@ public class Automaton {
 				case '_': underlineIdentifier1(line, lineNumber); break;
 				case '-': numberIdentifier(line, lineNumber); break;
 				case '+': numberIdentifier(line, lineNumber); break;
-				case '/': break;
+				case '/': commentIdentifier(line, lineNumber); break;
 				case 'i': integerIdentifier(line, lineNumber); break;
 				case 'f': floatIdentifier(line, lineNumber); break;
 				case 'd': doubleIdentifier(line, lineNumber); break;
 				case 'c': charIdentifier(line, lineNumber); break;
 				case 'b': booleanIdentifier(line, lineNumber); break;
 				case 'r': realIdentifier(line, lineNumber); break;
+				default: Error.addError(lineNumber);
 			}
 		}
 	}
@@ -29,6 +30,7 @@ public class Automaton {
 				switch(i){
 					case 1 : error = (line.charAt(i) == 'n' ? false : true); break;
 					case 2 : error = (line.charAt(i) == 't' ? false : true); break;
+					default: error = true;
 				}
 				if(error){
 					Error.addError(lineNumber);
@@ -36,9 +38,10 @@ public class Automaton {
 				}
 			}
 		}else{
+			error = true;
 			Error.addError(lineNumber);
 		}
-		if(!error){
+		if(error == false){
 			Output.setInt(lineNumber);
 		}
 	}
@@ -53,6 +56,7 @@ public class Automaton {
 					case 2 : error = (line.charAt(i) == 'o' ? false : true); break;
 					case 3 : error = (line.charAt(i) == 'a' ? false : true); break;
 					case 4 : error = (line.charAt(i) == 't' ? false : true); break;
+					default: error = true;
 				}
 				if(error){
 					Error.addError(lineNumber);
@@ -60,9 +64,10 @@ public class Automaton {
 				}
 			}
 		}else{
+			error = true;
 			Error.addError(lineNumber);
 		}
-		if(!error){
+		if(error == false){
 			Output.setFloat(lineNumber);
 		}
 	}
@@ -76,6 +81,7 @@ public class Automaton {
 					case 1 : error = (line.charAt(i) == 'e' ? false : true); break;
 					case 2 : error = (line.charAt(i) == 'a' ? false : true); break;
 					case 3 : error = (line.charAt(i) == 'l' ? false : true); break;
+					default : error = true;
 				}
 				if(error){
 					Error.addError(lineNumber);
@@ -83,9 +89,10 @@ public class Automaton {
 				}
 			}
 		}else{
+			error = true;
 			Error.addError(lineNumber);
 		}
-		if(!error){
+		if(error == false){
 			Output.setReal(lineNumber);
 		}
 	}
@@ -108,9 +115,10 @@ public class Automaton {
 				}
 			}
 		}else{
+			error = true;
 			Error.addError(lineNumber);
 		}
-		if(!error){
+		if(error == false){
 			Output.setDouble(lineNumber);
 		}
 	}
@@ -124,6 +132,7 @@ public class Automaton {
 					case 1 : error = (line.charAt(i) == 'h' ? false : true); break;
 					case 2 : error = (line.charAt(i) == 'a' ? false : true); break;
 					case 3 : error = (line.charAt(i) == 'r' ? false : true); break;
+					default : error = true;
 				}
 				if(error){
 					Error.addError(lineNumber);
@@ -131,9 +140,10 @@ public class Automaton {
 				}
 			}
 		}else{
+			error = true;
 			Error.addError(lineNumber);
 		}
-		if(!error){
+		if(error == false){
 			Output.setChar(lineNumber);
 		}
 	}
@@ -150,6 +160,7 @@ public class Automaton {
 					case 4 : error = (line.charAt(i) == 'e' ? false : true); break;
 					case 5 : error = (line.charAt(i) == 'a' ? false : true); break;
 					case 6 : error = (line.charAt(i) == 'n' ? false : true); break;
+					default : error = true;
 				}
 				if(error){
 					Error.addError(lineNumber);
@@ -157,23 +168,31 @@ public class Automaton {
 				}
 			}
 		}else{
+			error = true;
 			Error.addError(lineNumber);
 		}
-		if(!error){
+		if(error == false){
 			Output.setBoolean(lineNumber);
 		}
 	}
 	
-	/*private void comentIdentifier(String line, int lineNumber){
+	private void commentIdentifier(String line, int lineNumber){
 		int length = line.length();
 		if(line.charAt(1) == '*'){
-			for(int i = 2; i<length; i++){
-				if(isNumber(line.charAt(i) || )
+				if(line.charAt(length - 2) != '*'){
+					Error.addError(lineNumber);
+				}else{
+					if(line.charAt(length -1) != '/'){
+						Error.addError(lineNumber);
+					}
+					else{
+						Output.setCommentIdentifier(lineNumber, line);
+					}
 			}
 		}else{
 			Error.addError(lineNumber);
 		}
-	}*/
+	}
 	
 	private void numberIdentifier(String line, int lineNumber){
 		if(isNumber(line.charAt(1))){
@@ -216,7 +235,7 @@ public class Automaton {
 				}
 			}
 		}
-		if(!error){
+		if(error == false){
 			Symbols.addSymbol(line);
 			if(isFloat){
 				Output.setFloatIdentifier(lineNumber, line);
@@ -247,7 +266,7 @@ public class Automaton {
 				break;
 			}
 		}
-		if(!error){
+		if(error == false){
 			Symbols.addSymbol(line);
 			Output.setIdentifier(lineNumber, line);
 		}

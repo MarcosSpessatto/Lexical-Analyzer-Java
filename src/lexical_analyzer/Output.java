@@ -1,10 +1,10 @@
 package lexical_analyzer;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Output {
 
-	private static HashMap<Integer, String> output = new HashMap<Integer, String>();
+	private static LinkedHashMap<Integer, String> output = new LinkedHashMap<Integer, String>();
 	
 	public static void setIdentifier(int line, String value){
 		int index;
@@ -57,7 +57,11 @@ public class Output {
 		}
 	}
 	
-	public static HashMap<Integer, String> getOutput(){
+	public static void setCommentIdentifier(int line, String value){
+		output.put(line, "COMENTÁRIO");
+	}
+	
+	public static LinkedHashMap<Integer, String> getOutput(){
 		return output;
 	}
 }
