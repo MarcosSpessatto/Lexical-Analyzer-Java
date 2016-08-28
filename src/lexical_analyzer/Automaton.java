@@ -3,22 +3,26 @@ package lexical_analyzer;
 public class Automaton {
 	
 	public void identifyCharacter(String line, int lineNumber){
-		if(isNumber(line.charAt(0))){
-			numberIdentifier(line, lineNumber);
-		}else{
-			switch(line.charAt(0)){
-				case '_': underlineIdentifier1(line, lineNumber); break;
-				case '-': numberIdentifier(line, lineNumber); break;
-				case '+': numberIdentifier(line, lineNumber); break;
-				case '/': commentIdentifier(line, lineNumber); break;
-				case 'i': integerIdentifier(line, lineNumber); break;
-				case 'f': floatIdentifier(line, lineNumber); break;
-				case 'd': doubleIdentifier(line, lineNumber); break;
-				case 'c': charIdentifier(line, lineNumber); break;
-				case 'b': booleanIdentifier(line, lineNumber); break;
-				case 'r': realIdentifier(line, lineNumber); break;
-				default: Error.addError(lineNumber);
+		if(!line.equals("")){
+			if(isNumber(line.charAt(0))){
+				numberIdentifier(line, lineNumber);
+			}else{
+				switch(line.charAt(0)){
+					case '_': underlineIdentifier1(line, lineNumber); break;
+					case '-': numberIdentifier(line, lineNumber); break;
+					case '+': numberIdentifier(line, lineNumber); break;
+					case '/': commentIdentifier(line, lineNumber); break;
+					case 'i': integerIdentifier(line, lineNumber); break;
+					case 'f': floatIdentifier(line, lineNumber); break;
+					case 'd': doubleIdentifier(line, lineNumber); break;
+					case 'c': charIdentifier(line, lineNumber); break;
+					case 'b': booleanIdentifier(line, lineNumber); break;
+					case 'r': realIdentifier(line, lineNumber); break;
+					default: Error.addError(lineNumber);
+				}
 			}
+		}else{
+			Error.addError(lineNumber);
 		}
 	}
 	
